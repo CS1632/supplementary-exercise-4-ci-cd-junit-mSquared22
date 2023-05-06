@@ -18,8 +18,23 @@ public class RentACatImpl implements RentACat {
 	 */
 
 	public boolean returnCat(int id) {
-		// TODO
-		return false;
+		// null / zero-element check
+		if (cats == null || cats.size() == 0) {
+			return false;
+		}
+		Cat c = getCat(id);
+		if (c == null) {
+			// No cat of this ID exists, thus it is not available
+			return false;
+		} else if (!c.getRented()) {
+			// This cat exists, but is not rented
+			return false;
+		}
+
+		// If cat exists and is rented, then return the cat
+		c.returnCat();
+		return true;
+		
 	}
 
 	/**
@@ -33,8 +48,23 @@ public class RentACatImpl implements RentACat {
 	 */
 
 	public boolean rentCat(int id) {
-		// TODO
-		return false;
+		
+		// null / zero-element check
+		if (cats == null || cats.size() == 0) {
+			return false;
+		}
+		Cat c = getCat(id);
+		if (c == null) {
+			// No cat of this ID exists, thus it is not available
+			return false;
+		} else if (c.getRented()) {
+			// This cat exists, but has already been rented
+			return false;
+		}
+
+		// If cat exists and is not rented, then rent the cat
+		c.rentCat();
+		return true;
 	}
 
 	/**
@@ -48,8 +78,18 @@ public class RentACatImpl implements RentACat {
 	 */
 
 	public String listCats() {
-		// TODO
-		return "WRITE CODE FOR THIS";
+		Cat tmpCat;
+		StringBuilder rVal = new StringBuilder();
+		if( this.cats != null && this.cats.size() > 0 ) {
+			for( int idx = 0; idx < this.cats.size(); idx++) {
+				tmpCat = this.cats.get(idx);
+				if(tmpCat != null && ! tmpCat.getRented()) {
+					rVal.append( tmpCat.toString() );
+					rVal.append( '\n' );
+				}
+			}	
+		}
+		return rVal.toString();
 	}
 
 	/**
@@ -62,8 +102,17 @@ public class RentACatImpl implements RentACat {
 	 */
 
 	public boolean catExists(int id) {
-		// TODO
-		return false;
+		// null / zero-element check
+		if (cats == null || cats.size() == 0) {
+			return false;
+		}
+		Cat c = getCat(id);
+		if (c == null) {
+			// No cat of this ID exists
+			return false;
+		} 
+		// cat exists
+		return true;
 	}
 
 	/**
@@ -105,7 +154,6 @@ public class RentACatImpl implements RentACat {
 	 */
 
 	public Cat getCat(int id) {
-
 		// null / zero-element check
 		if (cats == null || cats.size() == 0) {
 			return null;
@@ -116,7 +164,7 @@ public class RentACatImpl implements RentACat {
 			// If we found a cat whose id matches the id
 			// of the argument, then we have a match and
 			// can thus return a reference to that cat
-			if (c.getId() == id) {
+			if (c != null && c.getId() == id) {
 				return c;
 			}
 		}
@@ -134,7 +182,9 @@ public class RentACatImpl implements RentACat {
 	 */
 
 	public void addCat(Cat c) {
-		cats.add(c);
+		if(this.cats != null && c != null) {
+			this.cats.add(c);
+		}
 	}
 
 	/**
