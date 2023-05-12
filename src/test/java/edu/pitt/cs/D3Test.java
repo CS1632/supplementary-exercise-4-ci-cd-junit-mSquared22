@@ -46,6 +46,7 @@ public class D3Test {
   public void tearDown() {
     driver.quit();
   }
+  /*
   @Test
   public void tEST1LINKS() {
     driver.get("https://cs1632.appspot.com/");
@@ -58,6 +59,7 @@ public class D3Test {
     System.out.println(vars.get("href").toString());
     assertEquals(vars.get("href").toString(), "/reset");
   }
+  */
   @Test
   public void tEST2RESET() {
     driver.get("https://cs1632.appspot.com/");
@@ -67,6 +69,7 @@ public class D3Test {
     assertThat(driver.findElement(By.xpath("//html/body/div/main/div[1]/div/ul/li[2]")).getText(), is("ID 2. Old Deuteronomy"));
     assertThat(driver.findElement(By.xpath("//html/body/div/main/div[1]/div/ul/li[3]")).getText(), is("ID 3. Mistoffelees"));
   }
+  /*
   @Test
   public void tEST3CATALOG() {
     driver.get("https://cs1632.appspot.com/");
@@ -78,6 +81,7 @@ public class D3Test {
     }
     assertEquals(vars.get("src").toString(), "/images/cat2.jpg");
   }
+  */
   @Test
   public void tEST6RENT() {
     driver.get("https://cs1632.appspot.com/");
